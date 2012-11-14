@@ -58,3 +58,12 @@ TEST(TestProduct)
 
   CHECK_CLOSE(-3., product(std::vector<double>{0.1, -10., 3.0}), 1e-12);
 }
+
+TEST(TestUntil)
+{
+  CHECK_EQUAL(0, until([](int i) {return i<=0;}, [](int i) {return i-1;}, 256));
+  double v = until([](double i) {return i<1e-6;}, [](double i) {return i/2;}, 256.);
+  CHECK(v<1e-6);
+
+  CHECK_EQUAL(1024, until([](int i) {return i>=1000;}, [](int i) {return i*2;}, 1));
+}

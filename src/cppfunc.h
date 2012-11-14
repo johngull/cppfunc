@@ -152,6 +152,16 @@ auto product(const Cont& container) -> typename std::remove_reference<decltype(*
     return foldl(cppfuncPrivate::multiply<decltype(*begin(container)), decltype(*begin(container))>, static_cast<decltype(*begin(container))>(1), container);
 }
 
+template<typename CheckFunc, typename IterateFunc, typename Value>
+Value until(CheckFunc check, IterateFunc iterate, Value v)
+{
+    while(!check(v))
+        v = iterate(v);
+
+    return v;
+}
+
+
 template<typename Pred, typename Cont>
 Cont filter(Pred predicate, const Cont& container)
 {   
